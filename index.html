@@ -137,5 +137,22 @@
             <p><a href="https://pedrovictor.com.br">pedrovictor.com.br</a></p>
         </div>
     </div>
+    <script>
+        (function() {
+            var ua = navigator.userAgent || navigator.vendor;
+            var isInApp = /Instagram|FBAN|FBAV|TikTok|Musical|Snapchat|Line|Twitter|LinkedInApp/i.test(ua);
+            if (isInApp) {
+                var url = window.location.href;
+                // Android: intent URL forces external browser
+                if (/android/i.test(ua)) {
+                    window.location.href = 'intent://' + url.replace(/https?:\/\//, '') + '#Intent;scheme=https;package=com.android.chrome;end';
+                }
+                // iOS: small delay + open in Safari trick
+                else {
+                    window.location.href = url + (url.indexOf('?') > -1 ? '&' : '?') + 'openExternalBrowser=1';
+                }
+            }
+        })();
+    </script>
 </body>
 </html>
